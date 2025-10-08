@@ -25,6 +25,10 @@ import infomalangbatukmp.composeapp.generated.resources.gallery
 import infomalangbatukmp.composeapp.generated.resources.list_place
 import infomalangbatukmp.composeapp.generated.resources.maps
 import org.jetbrains.compose.resources.stringResource
+import com.yoesuv.infomalangbatukmp.feature.listplace.ListPlaceScreen
+import com.yoesuv.infomalangbatukmp.feature.gallery.GalleryScreen
+import com.yoesuv.infomalangbatukmp.feature.maps.MapsScreen
+import com.yoesuv.infomalangbatukmp.feature.about.AboutScreen
 
 @Composable
 fun HomeScreen() {
@@ -58,10 +62,10 @@ fun HomeScreen() {
                 .padding(innerPadding)
         ) {
             when (selectedIndex) {
-                0 -> TabListPlace()
-                1 -> TabGallery()
-                2 -> TabMaps()
-                else -> TabAbout()
+                0 -> ListPlaceScreen()
+                1 -> GalleryScreen()
+                2 -> MapsScreen()
+                else -> AboutScreen()
             }
         }
     }

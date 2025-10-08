@@ -1,4 +1,4 @@
-package com.yoesuv.infomalangbatukmp.feature.home
+package com.yoesuv.infomalangbatukmp.feature.listplace
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +11,7 @@ import infomalangbatukmp.composeapp.generated.resources.list_place
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun TabListPlace() {
+fun ListPlaceScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
