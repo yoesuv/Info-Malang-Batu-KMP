@@ -29,6 +29,7 @@ import com.yoesuv.infomalangbatukmp.feature.listplace.ListPlaceScreen
 import com.yoesuv.infomalangbatukmp.feature.gallery.GalleryScreen
 import com.yoesuv.infomalangbatukmp.feature.maps.MapsScreen
 import com.yoesuv.infomalangbatukmp.feature.about.AboutScreen
+import com.yoesuv.infomalangbatukmp.components.AppTopBar
 
 @Composable
 fun HomeScreen() {
@@ -42,6 +43,12 @@ fun HomeScreen() {
     var selectedIndex by rememberSaveable { mutableStateOf(0) }
 
     Scaffold(
+        topBar = {
+            AppTopBar(
+                title = stringResource(items[selectedIndex].labelRes),
+                canBack = false
+            )
+        },
         bottomBar = {
             NavigationBar {
                 items.forEachIndexed { index, item ->
