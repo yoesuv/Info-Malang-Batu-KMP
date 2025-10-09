@@ -9,10 +9,15 @@ import com.yoesuv.infomalangbatukmp.feature.home.HomeScreen
 import com.yoesuv.infomalangbatukmp.feature.splash.SplashScreen
 
 import androidx.compose.material3.MaterialTheme
+import com.yoesuv.infomalangbatukmp.core.theme.AppColors
 
 @Composable
 fun App() {
-    MaterialTheme {
+    MaterialTheme(
+        colorScheme = MaterialTheme.colorScheme.copy(
+            primary = AppColors.Primary
+        )
+    ) {
         val navController = rememberNavController()
         NavHost(
             navController = navController,
