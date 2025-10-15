@@ -19,10 +19,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import infomalangbatukmp.composeapp.generated.resources.Res
+import infomalangbatukmp.composeapp.generated.resources.about_changelog
+import infomalangbatukmp.composeapp.generated.resources.about_information
+import infomalangbatukmp.composeapp.generated.resources.about_libraries
+import infomalangbatukmp.composeapp.generated.resources.about_thanks
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AboutScreen() {
-    val tabs = listOf("Information", "Changelog", "Thanks", "Libraries")
+    val tabs = listOf(
+        stringResource(Res.string.about_information),
+        stringResource(Res.string.about_changelog),
+        stringResource(Res.string.about_thanks),
+        stringResource(Res.string.about_libraries)
+    )
     val pagerState = rememberPagerState(pageCount = { tabs.size })
     val coroutineScope = rememberCoroutineScope()
 

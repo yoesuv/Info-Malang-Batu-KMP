@@ -4,4 +4,8 @@
     <string name="gallery">Gallery</string>
     <string name="maps">Maps</string>
     <string name="about">About</string>
+    <string name="about_information">Information</string>
+    <string name="about_changelog">Changelog</string>
+    <string name="about_thanks">Thanks</string>
+    <string name="about_libraries">Libraries</string>
 </resources>
