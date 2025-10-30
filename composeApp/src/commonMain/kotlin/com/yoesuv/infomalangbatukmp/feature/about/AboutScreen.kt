@@ -15,7 +15,6 @@ import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -79,11 +78,11 @@ fun AboutScreen() {
                 .fillMaxWidth()
                 .weight(1f)
         ) { page ->
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("Page $page")
+            when (page) {
+                0 -> TabInformation()
+                1 -> TabChangelog()
+                2 -> TabThanks()
+                3 -> TabLibraries()
             }
         }
     }
