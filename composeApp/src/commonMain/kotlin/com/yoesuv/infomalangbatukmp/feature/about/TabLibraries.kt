@@ -1,14 +1,16 @@
 package com.yoesuv.infomalangbatukmp.feature.about
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -16,17 +18,43 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yoesuv.infomalangbatukmp.core.models.LibraryModel
 import com.yoesuv.infomalangbatukmp.core.theme.AppColors
+import com.yoesuv.infomalangbatukmp.feature.about.LibrariesViewModel
 import infomalangbatukmp.composeapp.generated.resources.Res
-import infomalangbatukmp.composeapp.generated.resources.about_libraries
-import org.jetbrains.compose.resources.stringResource
+ 
 
 @Composable
 fun TabLibraries() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = stringResource(Res.string.about_libraries))
+    val viewModel = remember { LibrariesViewModel() }
+
+    LaunchedEffect(Unit) {
+        viewModel.updateLibraries(
+            listOf(
+                LibraryModel(
+                    name = "Compose Multiplatform",
+                    url = "https://www.jetbrains.com/lp/compose-multiplatform/",
+                    license = "Apache-2.0",
+                    isLast = false
+                ),
+                LibraryModel(
+                    name = "Kotlin",
+                    url = "https://kotlinlang.org/",
+                    license = "Apache-2.0",
+                    isLast = false
+                ),
+                LibraryModel(
+                    name = "Kotlinx Coroutines",
+                    url = "https://github.com/Kotlin/kotlinx.coroutines",
+                    license = "Apache-2.0",
+                    isLast = true
+                )
+            )
+        )
+    }
+
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        items(viewModel.libraries) { lib ->
+            ItemLibrary(library = lib)
+        }
     }
 }
 
@@ -43,7 +71,8 @@ fun ItemLibrary(
         Text(
             text = library.name ?: "",
             fontSize = 14.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 4.dp)
         )
 
         Text(
@@ -60,7 +89,8 @@ fun ItemLibrary(
 
         if (!(library.isLast ?: true)) {
             HorizontalDivider(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(top = 4.dp),
                 thickness = 1.dp,
             )
         }
