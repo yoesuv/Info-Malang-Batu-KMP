@@ -8,4 +8,6 @@
     <string name="about_changelog">Changelog</string>
     <string name="about_thanks">Thanks</string>
     <string name="about_libraries">Libraries</string>
+    <string name="changelog_version_1_0_0">1.0.0</string>
+    <string name="changelog_desc_1_0_0">initial release</string>
 </resources>
