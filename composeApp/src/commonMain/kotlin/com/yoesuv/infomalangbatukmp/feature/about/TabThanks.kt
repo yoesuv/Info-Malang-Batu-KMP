@@ -2,20 +2,26 @@ package com.yoesuv.infomalangbatukmp.feature.about
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import infomalangbatukmp.composeapp.generated.resources.Res
-import infomalangbatukmp.composeapp.generated.resources.about_thanks
+import infomalangbatukmp.composeapp.generated.resources.thanks
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TabThanks() {
     Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize().padding(all = 16.dp),
     ) {
-        Text(text = stringResource(Res.string.about_thanks))
+        Text(
+            text = stringResource(Res.string.thanks), style = TextStyle(
+                fontSize = 14.sp,
+            )
+        )
     }
 }

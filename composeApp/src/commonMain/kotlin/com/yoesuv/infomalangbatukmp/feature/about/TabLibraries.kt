@@ -1,6 +1,7 @@
 package com.yoesuv.infomalangbatukmp.feature.about
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,7 +32,10 @@ fun TabLibraries() {
         viewModel.loadLibraries()
     }
 
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(16.dp)
+    ) {
         items(viewModel.libraries) { lib ->
             ItemLibrary(library = lib)
         }
@@ -44,18 +48,15 @@ fun ItemLibrary(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+        modifier = modifier.fillMaxWidth()
     ) {
         val nameText = library.name?.let { stringResource(it) } ?: ""
         val urlText = library.url?.let { stringResource(it) } ?: ""
-        val licenseText = library.license?.let { stringResource( it) } ?: ""
+        val licenseText = library.license?.let { stringResource(it) } ?: ""
         Text(
             text = nameText,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 4.dp)
         )
 
         Text(
@@ -76,7 +77,7 @@ fun ItemLibrary(
         if (!(library.isLast ?: true)) {
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth()
-                    .padding(top = 8.dp),
+                    .padding(vertical = 8.dp),
                 thickness = 1.dp,
             )
         }

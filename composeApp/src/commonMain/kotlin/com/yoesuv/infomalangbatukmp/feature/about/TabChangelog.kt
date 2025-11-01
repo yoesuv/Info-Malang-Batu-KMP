@@ -1,6 +1,7 @@
 package com.yoesuv.infomalangbatukmp.feature.about
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,12 +35,15 @@ fun TabChangelog() {
                     version = version,
                     description = description,
                     isLast = true
-                )
+                ),
             )
         )
     }
 
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(16.dp)
+    ) {
         items(viewModel.changelogs) { item ->
             ItemChangeLog(changelog = item)
         }
@@ -54,11 +58,9 @@ fun ItemChangeLog(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
     ) {
         Text(
             text = changelog.version ?: "",
-            modifier = Modifier.padding(top = 5.dp),
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
@@ -72,7 +74,7 @@ fun ItemChangeLog(
             HorizontalDivider(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 5.dp),
+                    .padding(vertical = 5.dp),
                 thickness = 1.dp,
             )
         }
