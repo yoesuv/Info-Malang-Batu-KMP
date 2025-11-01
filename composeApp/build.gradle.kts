@@ -53,6 +53,7 @@ kotlin {
 
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
+            implementation(libs.ksoup)
         }
         iosMain.dependencies {
             implementation(libs.ktor.darwin)

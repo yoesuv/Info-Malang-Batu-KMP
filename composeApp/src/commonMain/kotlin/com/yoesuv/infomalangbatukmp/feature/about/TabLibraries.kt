@@ -12,10 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.fleeksoft.ksoup.Ksoup
 import com.yoesuv.infomalangbatukmp.core.models.LibraryModel
 import com.yoesuv.infomalangbatukmp.core.theme.AppColors
 import org.jetbrains.compose.resources.stringResource
@@ -47,7 +50,7 @@ fun ItemLibrary(
     ) {
         val nameText = library.name?.let { stringResource(it) } ?: ""
         val urlText = library.url?.let { stringResource(it) } ?: ""
-        val licenseText = library.license?.let { stringResource(it) } ?: ""
+        val licenseText = library.license?.let { stringResource( it) } ?: ""
         Text(
             text = nameText,
             fontSize = 14.sp,
@@ -57,20 +60,23 @@ fun ItemLibrary(
 
         Text(
             text = urlText,
-            fontSize = 11.sp,
+            fontSize = 12.sp,
             color = AppColors.Link
         )
 
         Text(
-            text = licenseText,
-            fontSize = 12.sp,
-            fontFamily = FontFamily.Monospace
+            text = Ksoup.parse(licenseText).body().wholeText(),
+            fontSize = 10.sp,
+            fontFamily = FontFamily.Monospace,
+            style = TextStyle(
+                lineHeight = 1.05.em,
+            )
         )
 
         if (!(library.isLast ?: true)) {
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth()
-                    .padding(top = 4.dp),
+                    .padding(top = 8.dp),
                 thickness = 1.dp,
             )
         }
