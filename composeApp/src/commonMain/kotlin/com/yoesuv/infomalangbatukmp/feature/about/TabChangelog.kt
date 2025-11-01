@@ -24,7 +24,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TabChangelog() {
-    val viewModel = remember { AboutViewModel() }
+    val viewModel = remember { ChangelogViewModel() }
     val version = stringResource(Res.string.changelog_version_1_0_0)
     val description = stringResource(Res.string.changelog_desc_1_0_0)
 

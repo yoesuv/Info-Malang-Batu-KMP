@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.yoesuv.infomalangbatukmp.core.models.ChangeLogModel
 
-class AboutViewModel : ViewModel() {
+class ChangelogViewModel : ViewModel() {
     var changelogs by mutableStateOf<List<ChangeLogModel>>(emptyList())
         private set
 
