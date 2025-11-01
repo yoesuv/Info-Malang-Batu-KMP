@@ -8,6 +8,7 @@
     <string name="about_changelog">Changelog</string>
     <string name="about_thanks">Thanks</string>
     <string name="about_libraries">Libraries</string>
+    <string name="about_app_information">Compose Multiplatform Version</string>
     <string name="thanks">terima kasih kepada blog-blog maupun perorangan yang fotonya dimuat dalam aplikasi ini, dan tidak bisa disebutkan satu persatu (kalian luar biasa...)</string>
     <string name="changelog_version_1_0_0">1.0.0</string>
     <string name="changelog_desc_1_0_0">initial release</string>
