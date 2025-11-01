@@ -13,9 +13,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yoesuv.infomalangbatukmp.getAppVersion
 import infomalangbatukmp.composeapp.generated.resources.Res
 import infomalangbatukmp.composeapp.generated.resources.about_app_information
 import infomalangbatukmp.composeapp.generated.resources.app_name
+import infomalangbatukmp.composeapp.generated.resources.version
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -38,7 +40,7 @@ fun TabInformation() {
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Version 1.0.0", style = TextStyle(
+            text = stringResource(Res.string.version) + " " + getAppVersion(), style = TextStyle(
                 fontSize = 12.sp,
             )
         )
