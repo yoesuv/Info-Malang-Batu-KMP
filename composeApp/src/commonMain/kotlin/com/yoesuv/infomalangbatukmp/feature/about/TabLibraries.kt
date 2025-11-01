@@ -18,37 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yoesuv.infomalangbatukmp.core.models.LibraryModel
 import com.yoesuv.infomalangbatukmp.core.theme.AppColors
-import com.yoesuv.infomalangbatukmp.feature.about.LibrariesViewModel
-import infomalangbatukmp.composeapp.generated.resources.Res
- 
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TabLibraries() {
     val viewModel = remember { LibrariesViewModel() }
 
     LaunchedEffect(Unit) {
-        viewModel.updateLibraries(
-            listOf(
-                LibraryModel(
-                    name = "Compose Multiplatform",
-                    url = "https://www.jetbrains.com/lp/compose-multiplatform/",
-                    license = "Apache-2.0",
-                    isLast = false
-                ),
-                LibraryModel(
-                    name = "Kotlin",
-                    url = "https://kotlinlang.org/",
-                    license = "Apache-2.0",
-                    isLast = false
-                ),
-                LibraryModel(
-                    name = "Kotlinx Coroutines",
-                    url = "https://github.com/Kotlin/kotlinx.coroutines",
-                    license = "Apache-2.0",
-                    isLast = true
-                )
-            )
-        )
+        viewModel.loadLibraries()
     }
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -68,21 +45,24 @@ fun ItemLibrary(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
     ) {
+        val nameText = library.name?.let { stringResource(it) } ?: ""
+        val urlText = library.url?.let { stringResource(it) } ?: ""
+        val licenseText = library.license?.let { stringResource(it) } ?: ""
         Text(
-            text = library.name ?: "",
+            text = nameText,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 4.dp)
         )
 
         Text(
-            text = library.url ?: "",
+            text = urlText,
             fontSize = 11.sp,
             color = AppColors.Link
         )
 
         Text(
-            text = library.license ?: "",
+            text = licenseText,
             fontSize = 12.sp,
             fontFamily = FontFamily.Monospace
         )
