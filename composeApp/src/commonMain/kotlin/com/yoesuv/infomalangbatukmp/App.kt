@@ -11,10 +11,12 @@ import com.yoesuv.infomalangbatukmp.feature.splash.SplashScreen
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.Color
 import com.yoesuv.infomalangbatukmp.core.theme.AppColors
+import com.yoesuv.infomalangbatukmp.core.theme.quicksandTypography
 
 @Composable
 fun App() {
     MaterialTheme(
+        typography = quicksandTypography(),
         colorScheme = MaterialTheme.colorScheme.copy(
             primary = AppColors.Primary,
             primaryContainer = AppColors.Primary,

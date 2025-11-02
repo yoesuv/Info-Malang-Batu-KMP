@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,22 +26,19 @@ fun TabInformation() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(Res.string.app_name), style = TextStyle(
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
+            text = stringResource(Res.string.app_name),
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = stringResource(Res.string.about_app_information), style = TextStyle(
-                fontSize = 14.sp,
-            )
+            text = stringResource(Res.string.about_app_information),
+            fontSize = 14.sp
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = stringResource(Res.string.version) + " " + getAppVersion(), style = TextStyle(
-                fontSize = 12.sp,
-            )
+            text = stringResource(Res.string.version) + " " + getAppVersion(),
+            fontSize = 12.sp
         )
     }
 }

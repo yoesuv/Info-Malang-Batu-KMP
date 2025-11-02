@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import infomalangbatukmp.composeapp.generated.resources.Res
 import infomalangbatukmp.composeapp.generated.resources.thanks
@@ -19,9 +19,9 @@ fun TabThanks() {
         modifier = Modifier.fillMaxSize().padding(all = 16.dp),
     ) {
         Text(
-            text = stringResource(Res.string.thanks), style = TextStyle(
-                fontSize = 14.sp,
-            )
+            text = stringResource(Res.string.thanks),
+            fontSize = 14.sp,
+            lineHeight = 1.1.em,
         )
     }
 }

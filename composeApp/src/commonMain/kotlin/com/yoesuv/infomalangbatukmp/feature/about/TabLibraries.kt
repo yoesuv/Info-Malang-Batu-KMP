@@ -62,6 +62,7 @@ fun ItemLibrary(
         Text(
             text = urlText,
             fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
             color = AppColors.Link
         )
 
