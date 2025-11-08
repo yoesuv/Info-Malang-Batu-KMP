@@ -1,21 +1,29 @@
 package com.yoesuv.infomalangbatukmp.feature.gallery
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import infomalangbatukmp.composeapp.generated.resources.Res
-import infomalangbatukmp.composeapp.generated.resources.gallery
-import org.jetbrains.compose.resources.stringResource
+import com.yoesuv.infomalangbatukmp.core.models.GalleryModel
 
 @Composable
-fun GalleryScreen() {
-    Box(
+fun GalleryScreen(
+    onGalleryClick: (GalleryModel) -> Unit = {}
+) {
+    val viewModel = remember { GalleryViewModel() }
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(3),
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
     ) {
-        Text(text = stringResource(Res.string.gallery))
+        items(viewModel.galleries) { gallery ->
+            ItemGalleryView(
+                gallery = gallery,
+                onClick = { onGalleryClick(gallery) }
+            )
+        }
     }
 }
