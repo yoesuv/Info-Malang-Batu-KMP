@@ -18,7 +18,7 @@ navigation = "2.9.0"
 material-icons-extended = "1.7.3"
 ktor = "3.3.1"
 coil = "3.3.0"
-kmpMaps = "0.3.0"
+kmpMaps = "0.2.2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -43,7 +43,8 @@ ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 ksoup = { module = "com.fleeksoft.ksoup:ksoup", version.ref = "ksoup" }
-kmp-maps = { module = "com.swmansion.kmpmaps:google-maps", version.ref = "kmpMaps" }
+# com.swmansion.kmpmaps:kmp-maps
+kmp-maps = { module = "com.swmansion.kmpmaps:kmp-maps", version.ref = "kmpMaps" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
