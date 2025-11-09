@@ -54,6 +54,8 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
             implementation(libs.ksoup)
+
+            implementation(libs.kmp.maps)
         }
         iosMain.dependencies {
             implementation(libs.ktor.darwin)
