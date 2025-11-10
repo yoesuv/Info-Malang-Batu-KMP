@@ -1,5 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -8,6 +10,14 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
 }
+
+// Load API key from properties file
+val apiKeyProperties = Properties()
+val apiKeyFile = rootProject.file("api-key.properties")
+if (apiKeyFile.exists()) {
+    apiKeyProperties.load(FileInputStream(apiKeyFile))
+}
+val googleMapsApiKey = apiKeyProperties.getProperty("GOOGLE_MAPS_API_KEY", "")
 
 kotlin {
     androidTarget {
@@ -76,6 +86,9 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0.0"
+        
+        // Inject Google Maps API key into manifest
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = googleMapsApiKey
     }
     packaging {
         resources {
