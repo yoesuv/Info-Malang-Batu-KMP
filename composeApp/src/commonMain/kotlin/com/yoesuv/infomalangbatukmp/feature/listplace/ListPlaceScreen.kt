@@ -13,13 +13,27 @@ fun ListPlaceScreen(
     onPlaceClick: (PlaceModel) -> Unit = {}
 ) {
     val viewModel = remember { ListPlaceViewModel() }
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        items(viewModel.places) { place ->
-            ItemPlaceView(
-                place = place,
-                onClick = { onPlaceClick(place) }
+    
+    when (val state = viewModel.uiState) {
+        is ListPlaceUiState.Loading -> {
+            LoadingView()
+        }
+        is ListPlaceUiState.Success -> {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                items(state.places) { place ->
+                    ItemPlaceView(
+                        place = place,
+                        onClick = { onPlaceClick(place) }
+                    )
+                }
+            }
+        }
+        is ListPlaceUiState.Error -> {
+            ErrorView(
+                message = state.message,
+                onRetry = { viewModel.retryLoad() }
             )
         }
     }
