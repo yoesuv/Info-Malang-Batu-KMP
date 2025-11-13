@@ -11,6 +11,9 @@ import infomalangbatukmp.composeapp.generated.resources.coil_url
 import infomalangbatukmp.composeapp.generated.resources.compose_multiplatform
 import infomalangbatukmp.composeapp.generated.resources.compose_multiplatform_license
 import infomalangbatukmp.composeapp.generated.resources.compose_multiplatform_url
+import infomalangbatukmp.composeapp.generated.resources.kmp_maps
+import infomalangbatukmp.composeapp.generated.resources.kmp_maps_license
+import infomalangbatukmp.composeapp.generated.resources.kmp_maps_url
 import infomalangbatukmp.composeapp.generated.resources.kotlinx_serialization
 import infomalangbatukmp.composeapp.generated.resources.kotlinx_serialization_license
 import infomalangbatukmp.composeapp.generated.resources.kotlinx_serialization_url
@@ -43,6 +46,12 @@ class LibrariesViewModel : ViewModel() {
                     name = str.coil,
                     url = str.coil_url,
                     license = str.coil_license,
+                    isLast = false
+                ),
+                LibraryModel(
+                    name = str.kmp_maps,
+                    url = str.kmp_maps_url,
+                    license = str.kmp_maps_license,
                     isLast = false
                 ),
                 LibraryModel(
