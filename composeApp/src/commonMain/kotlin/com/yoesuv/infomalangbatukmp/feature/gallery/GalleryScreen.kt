@@ -8,6 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.yoesuv.infomalangbatukmp.core.models.GalleryModel
+import com.yoesuv.infomalangbatukmp.feature.listplace.ErrorView
+import com.yoesuv.infomalangbatukmp.feature.listplace.LoadingView
 
 @Composable
 fun GalleryScreen(
@@ -15,14 +17,28 @@ fun GalleryScreen(
 ) {
     val viewModel = remember { GalleryViewModel() }
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        items(viewModel.galleries) { gallery ->
-            ItemGalleryView(
-                gallery = gallery,
-                onClick = { onGalleryClick(gallery) }
+    when (val state = viewModel.uiState) {
+        is GalleryUiState.Loading -> {
+            LoadingView(message = "Loading gallery...")
+        }
+        is GalleryUiState.Success -> {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                items(state.galleries) { gallery ->
+                    ItemGalleryView(
+                        gallery = gallery,
+                        onClick = { onGalleryClick(gallery) }
+                    )
+                }
+            }
+        }
+        is GalleryUiState.Error -> {
+            ErrorView(
+                title = "Error loading gallery",
+                message = state.message,
+                onRetry = { viewModel.retryLoad() }
             )
         }
     }

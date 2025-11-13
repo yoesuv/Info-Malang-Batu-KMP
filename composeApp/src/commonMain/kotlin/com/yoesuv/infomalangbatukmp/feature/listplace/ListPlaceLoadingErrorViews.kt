@@ -15,7 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoadingView() {
+fun LoadingView(
+    message: String = "Loading places..."
+) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -26,7 +28,7 @@ fun LoadingView() {
         ) {
             CircularProgressIndicator()
             Text(
-                text = "Loading places...",
+                text = message,
                 modifier = Modifier.padding(top = 16.dp),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -36,6 +38,7 @@ fun LoadingView() {
 
 @Composable
 fun ErrorView(
+    title: String = "Error loading places",
     message: String,
     onRetry: () -> Unit
 ) {
@@ -49,7 +52,7 @@ fun ErrorView(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = "Error loading places",
+                text = title,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
