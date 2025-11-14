@@ -2,9 +2,10 @@ package com.yoesuv.infomalangbatukmp.feature.maps
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -12,11 +13,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import com.yoesuv.infomalangbatukmp.core.theme.AppColors
 import com.swmansion.kmpmaps.CameraPosition
 import com.swmansion.kmpmaps.Coordinates
 import com.swmansion.kmpmaps.Map
 import com.swmansion.kmpmaps.Marker
 import kotlinx.coroutines.launch
+
+@Composable
+fun ErrorSnackbar(snackbarData: SnackbarData) {
+    Snackbar(
+        snackbarData = snackbarData,
+        containerColor = AppColors.Error500,
+        contentColor = Color.White
+    )
+}
 
 @Composable
 fun MapsScreen() {
@@ -35,7 +47,11 @@ fun MapsScreen() {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { 
+            SnackbarHost(hostState = snackbarHostState) { snackbarData ->
+                ErrorSnackbar(snackbarData)
+            }
+        },
         contentWindowInsets = WindowInsets(0,0,0,0)
     ) { paddingValues ->
         Map(

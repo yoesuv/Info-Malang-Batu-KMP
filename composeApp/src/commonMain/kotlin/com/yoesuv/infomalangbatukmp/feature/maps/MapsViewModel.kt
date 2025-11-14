@@ -40,7 +40,6 @@ class MapsViewModel(
             try {
                 val pinsData = pinsApiService.getPins()
                 updatePins(pinsData)
-                showSnackbar("Successfully loaded ${pinsData.size} pins")
             } catch (e: Exception) {
                 showSnackbar("Failed to load pins: ${e.message ?: "Unknown error"}")
             }
