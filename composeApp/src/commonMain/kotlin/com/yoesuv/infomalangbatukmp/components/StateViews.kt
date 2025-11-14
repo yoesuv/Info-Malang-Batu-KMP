@@ -1,4 +1,4 @@
-package com.yoesuv.infomalangbatukmp.feature.listplace
+package com.yoesuv.infomalangbatukmp.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

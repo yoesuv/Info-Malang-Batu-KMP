@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.yoesuv.infomalangbatukmp.core.models.GalleryModel
-import com.yoesuv.infomalangbatukmp.feature.listplace.ErrorView
-import com.yoesuv.infomalangbatukmp.feature.listplace.LoadingView
+import com.yoesuv.infomalangbatukmp.components.ErrorView
+import com.yoesuv.infomalangbatukmp.components.LoadingView
 
 @Composable
 fun GalleryScreen(
