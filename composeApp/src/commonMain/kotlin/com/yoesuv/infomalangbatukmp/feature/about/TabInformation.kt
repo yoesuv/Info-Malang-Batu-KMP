@@ -38,7 +38,8 @@ fun TabInformation() {
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = stringResource(Res.string.version) + " " + getAppVersion(),
-            fontSize = 12.sp
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium
         )
     }
 }

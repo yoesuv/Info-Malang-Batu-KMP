@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -22,6 +23,7 @@ fun TabThanks() {
             text = stringResource(Res.string.thanks),
             fontSize = 14.sp,
             lineHeight = 1.1.em,
+            fontWeight = FontWeight.Medium,
         )
     }
 }
