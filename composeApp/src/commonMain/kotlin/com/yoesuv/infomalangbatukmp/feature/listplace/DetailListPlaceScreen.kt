@@ -70,9 +70,10 @@ fun DetailListPlaceScreen(
                 .fillMaxWidth()
                 .padding(
                     start = 16.dp,
-                    end = 16.dp
+                    end = 16.dp,
+                    top = 8.dp
                 ),
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 1.1.em
         )

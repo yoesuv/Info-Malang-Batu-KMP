@@ -7,12 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.yoesuv.infomalangbatukmp.core.models.PlaceModel
+import com.yoesuv.infomalangbatukmp.core.route.AppRoute
 import com.yoesuv.infomalangbatukmp.components.LoadingView
 import com.yoesuv.infomalangbatukmp.components.ErrorView
 
 @Composable
 fun ListPlaceScreen(
-    onPlaceClick: (PlaceModel) -> Unit = {}
+    onPlaceClick: (PlaceModel, AppRoute.DetailListPlace) -> Unit = { _, _ -> }
 ) {
     val viewModel = remember { ListPlaceViewModel() }
     
@@ -27,7 +28,14 @@ fun ListPlaceScreen(
                 items(state.places) { place ->
                     ItemPlaceView(
                         place = place,
-                        onClick = { onPlaceClick(place) }
+                        onClick = { 
+                            val detailRoute = AppRoute.DetailListPlace(
+                                imageUrl = place.gambar.orEmpty(),
+                                title = place.nama.orEmpty(),
+                                description = place.deskripsi.orEmpty()
+                            )
+                            onPlaceClick(place, detailRoute)
+                        }
                     )
                 }
             }

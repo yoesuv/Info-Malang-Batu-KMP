@@ -71,7 +71,11 @@ fun HomeScreen(navController: NavController? = null) {
                 .padding(innerPadding)
         ) {
             when (selectedIndex) {
-                0 -> ListPlaceScreen()
+                0 -> ListPlaceScreen(
+                    onPlaceClick = { _, detailRoute ->
+                        navController?.navigate(detailRoute)
+                    }
+                )
                 1 -> GalleryScreen(
                     onGalleryClick = { gallery ->
                         navController?.navigate(AppRoute.DetailGallery(
