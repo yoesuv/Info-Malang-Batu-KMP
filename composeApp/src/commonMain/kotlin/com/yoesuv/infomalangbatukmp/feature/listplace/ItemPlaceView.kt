@@ -21,6 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.yoesuv.infomalangbatukmp.core.models.PlaceModel
+import infomalangbatukmp.composeapp.generated.resources.Res
+import infomalangbatukmp.composeapp.generated.resources.placeholder_image
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ItemPlaceView(
@@ -39,7 +42,9 @@ fun ItemPlaceView(
             model = place.gambar,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+            placeholder = painterResource(Res.drawable.placeholder_image),
+            error = painterResource(Res.drawable.placeholder_image),
+            contentScale = ContentScale.Crop,
         )
 
         // Gradient overlay

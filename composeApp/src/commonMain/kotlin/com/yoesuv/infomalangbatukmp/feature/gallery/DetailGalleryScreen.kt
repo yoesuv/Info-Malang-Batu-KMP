@@ -17,6 +17,8 @@ import coil3.compose.AsyncImage
 import com.yoesuv.infomalangbatukmp.components.AppTopBar
 import infomalangbatukmp.composeapp.generated.resources.Res
 import infomalangbatukmp.composeapp.generated.resources.detail_gallery
+import infomalangbatukmp.composeapp.generated.resources.placeholder_image
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -43,6 +45,8 @@ fun DetailGalleryScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(250.dp),
+            placeholder = painterResource(Res.drawable.placeholder_image),
+            error = painterResource(Res.drawable.placeholder_image),
             contentScale = ContentScale.Crop
         )
 

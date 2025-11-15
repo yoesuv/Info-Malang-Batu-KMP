@@ -8,6 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil3.compose.AsyncImage
 import com.yoesuv.infomalangbatukmp.core.models.GalleryModel
+import infomalangbatukmp.composeapp.generated.resources.Res
+import infomalangbatukmp.composeapp.generated.resources.placeholder_image
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ItemGalleryView(
@@ -19,6 +22,8 @@ fun ItemGalleryView(
         model = gallery.thumbnail ?: gallery.image,
         contentDescription = gallery.caption,
         contentScale = ContentScale.Crop,
+        placeholder = painterResource(Res.drawable.placeholder_image),
+        error = painterResource(Res.drawable.placeholder_image),
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1f)
