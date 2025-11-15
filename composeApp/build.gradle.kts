@@ -86,6 +86,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0.0"
+        setProperty("archivesBaseName", "$applicationId-$versionName")
         
         // Inject Google Maps API key into manifest
         manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = googleMapsApiKey
