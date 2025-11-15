@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.yoesuv.infomalangbatukmp.components.AppTopBar
 import infomalangbatukmp.composeapp.generated.resources.Res
-import infomalangbatukmp.composeapp.generated.resources.detail_gallery
+import infomalangbatukmp.composeapp.generated.resources.detail_list_place
 import infomalangbatukmp.composeapp.generated.resources.placeholder_image
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -35,7 +35,7 @@ fun DetailListPlaceScreen(
             .fillMaxSize()
     ) {
         AppTopBar(
-            title = stringResource(Res.string.detail_gallery),
+            title = stringResource(Res.string.detail_list_place),
             canBack = true,
             navigateUp = onNavigateUp
         )
