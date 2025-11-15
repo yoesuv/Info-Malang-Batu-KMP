@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Info Malang Batu KMP</string>
     <string name="list_place">List Place</string>
+    <string name="detail_list_place">Detail Place</string>
     <string name="gallery">Gallery</string>
+    <string name="detail_gallery">Detail Gallery</string>
     <string name="maps">Maps</string>
     <string name="about">About</string>
     <string name="about_information">Information</string>

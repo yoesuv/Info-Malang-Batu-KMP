@@ -30,9 +30,11 @@ import com.yoesuv.infomalangbatukmp.feature.gallery.GalleryScreen
 import com.yoesuv.infomalangbatukmp.feature.maps.MapsScreen
 import com.yoesuv.infomalangbatukmp.feature.about.AboutScreen
 import com.yoesuv.infomalangbatukmp.components.AppTopBar
+import androidx.navigation.NavController
+import com.yoesuv.infomalangbatukmp.core.route.AppRoute
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController? = null) {
     val items = listOf(
         BottomItem(labelRes = Res.string.list_place, icon = Icons.AutoMirrored.Filled.List),
         BottomItem(labelRes = Res.string.gallery, icon = Icons.Filled.Image),
@@ -70,7 +72,14 @@ fun HomeScreen() {
         ) {
             when (selectedIndex) {
                 0 -> ListPlaceScreen()
-                1 -> GalleryScreen()
+                1 -> GalleryScreen(
+                    onGalleryClick = { gallery ->
+                        navController?.navigate(AppRoute.DetailGallery(
+                            image = gallery.image.orEmpty(),
+                            caption = gallery.caption.orEmpty()
+                        ))
+                    }
+                )
                 2 -> MapsScreen()
                 else -> AboutScreen()
             }

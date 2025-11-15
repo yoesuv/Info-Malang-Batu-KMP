@@ -7,4 +7,6 @@ sealed class AppRoute {
     data object Splash : AppRoute()
     @Serializable
     data object Home : AppRoute()
+    @Serializable
+    data class DetailGallery(val image: String, val caption: String) : AppRoute()
 }
