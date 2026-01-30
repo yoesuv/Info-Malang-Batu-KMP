@@ -15,6 +15,8 @@
     <string name="thanks">terima kasih kepada blog-blog maupun perorangan yang fotonya dimuat dalam aplikasi ini, dan tidak bisa disebutkan satu persatu (kalian luar biasa...)</string>
     <string name="changelog_version_1_0_0">1.0.0</string>
     <string name="changelog_desc_1_0_0">initial release</string>
+    <string name="changelog_version_1_0_1">1.0.1</string>
+    <string name="changelog_desc_1_0_1">update libraries</string>
 
     <string name="compose_multiplatform">Compose Multiplatform</string>
     <string name="compose_multiplatform_url">https://www.jetbrains.com/compose-multiplatform/</string>
