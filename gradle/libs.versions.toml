@@ -43,8 +43,7 @@ ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 ksoup = { module = "com.fleeksoft.ksoup:ksoup", version.ref = "ksoup" }
-# com.swmansion.kmpmaps:kmp-maps
-kmp-maps = { module = "com.swmansion.kmpmaps:kmp-maps", version.ref = "kmpMaps" }
+kmp-maps = { module = "com.swmansion.kmpmaps:core", version.ref = "kmpMaps" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
