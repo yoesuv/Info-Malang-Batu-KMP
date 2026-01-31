@@ -10,33 +10,22 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yoesuv.infomalangbatukmp.core.models.ChangeLogModel
-import infomalangbatukmp.composeapp.generated.resources.Res
-import infomalangbatukmp.composeapp.generated.resources.changelog_desc_1_0_0
-import infomalangbatukmp.composeapp.generated.resources.changelog_version_1_0_0
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TabChangelog() {
     val viewModel = remember { ChangelogViewModel() }
-    val version = stringResource(Res.string.changelog_version_1_0_0)
-    val description = stringResource(Res.string.changelog_desc_1_0_0)
-
-    LaunchedEffect(version, description) {
-        viewModel.updateChangelogs(
-            listOf(
-                ChangeLogModel(
-                    version = version,
-                    description = description,
-                    isLast = true
-                ),
-            )
+    val changelogItems = viewModel.changelogResources.mapIndexed { index, item ->
+        ChangeLogModel(
+            version = stringResource(item.versionRes),
+            description = stringResource(item.descriptionRes),
+            isLast = index == viewModel.changelogResources.lastIndex
         )
     }
 
@@ -44,7 +33,7 @@ fun TabChangelog() {
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp)
     ) {
-        items(viewModel.changelogs) { item ->
+        items(changelogItems) { item ->
             ItemChangeLog(changelog = item)
         }
     }

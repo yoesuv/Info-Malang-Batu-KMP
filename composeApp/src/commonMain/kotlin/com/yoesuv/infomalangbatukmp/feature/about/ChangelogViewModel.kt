@@ -1,16 +1,27 @@
 package com.yoesuv.infomalangbatukmp.feature.about
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.yoesuv.infomalangbatukmp.core.models.ChangeLogModel
+import infomalangbatukmp.composeapp.generated.resources.Res
+import infomalangbatukmp.composeapp.generated.resources.changelog_desc_1_0_0
+import infomalangbatukmp.composeapp.generated.resources.changelog_desc_1_0_1
+import infomalangbatukmp.composeapp.generated.resources.changelog_version_1_0_0
+import infomalangbatukmp.composeapp.generated.resources.changelog_version_1_0_1
+import org.jetbrains.compose.resources.StringResource
+
+data class ChangeLogResource(
+    val versionRes: StringResource,
+    val descriptionRes: StringResource
+)
 
 class ChangelogViewModel : ViewModel() {
-    var changelogs by mutableStateOf<List<ChangeLogModel>>(emptyList())
-        private set
-
-    fun updateChangelogs(data: List<ChangeLogModel>) {
-        changelogs = data
-    }
+    val changelogResources = listOf(
+        ChangeLogResource(
+            versionRes = Res.string.changelog_version_1_0_1,
+            descriptionRes = Res.string.changelog_desc_1_0_1
+        ),
+        ChangeLogResource(
+            versionRes = Res.string.changelog_version_1_0_0,
+            descriptionRes = Res.string.changelog_desc_1_0_0
+        )
+    )
 }

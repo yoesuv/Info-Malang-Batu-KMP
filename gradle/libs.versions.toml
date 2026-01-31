@@ -3,22 +3,22 @@ agp = "8.11.2"
 android-compileSdk = "36"
 android-minSdk = "24"
 android-targetSdk = "36"
-androidx-activity = "1.11.0"
+androidx-activity = "1.12.2"
 androidx-appcompat = "1.7.1"
 androidx-core = "1.17.0"
 androidx-espresso = "3.7.0"
-androidx-lifecycle = "2.9.4"
+androidx-lifecycle = "2.9.6"
 androidx-testExt = "1.3.0"
-composeMultiplatform = "1.9.0"
+composeMultiplatform = "1.10.0"
 junit = "4.13.2"
-kotlin = "2.2.20"
-kotlinxSerialization = "1.9.0"
+kotlin = "2.3.0"
+kotlinxSerialization = "1.10.0"
 ksoup = "0.2.5"
-navigation = "2.9.0"
+navigation = "2.9.1"
 material-icons-extended = "1.7.3"
-ktor = "3.3.1"
+ktor = "3.4.0"
 coil = "3.3.0"
-kmpMaps = "0.2.2"
+kmpMaps = "0.7.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -43,8 +43,7 @@ ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 ksoup = { module = "com.fleeksoft.ksoup:ksoup", version.ref = "ksoup" }
-# com.swmansion.kmpmaps:kmp-maps
-kmp-maps = { module = "com.swmansion.kmpmaps:kmp-maps", version.ref = "kmpMaps" }
+kmp-maps = { module = "com.swmansion.kmpmaps:core", version.ref = "kmpMaps" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

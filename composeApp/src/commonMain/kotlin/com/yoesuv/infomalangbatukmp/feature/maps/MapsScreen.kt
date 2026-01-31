@@ -14,11 +14,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.swmansion.kmpmaps.core.CameraPosition
+import com.swmansion.kmpmaps.core.Coordinates
+import com.swmansion.kmpmaps.core.Map
+import com.swmansion.kmpmaps.core.Marker
 import com.yoesuv.infomalangbatukmp.core.theme.AppColors
-import com.swmansion.kmpmaps.CameraPosition
-import com.swmansion.kmpmaps.Coordinates
-import com.swmansion.kmpmaps.Map
-import com.swmansion.kmpmaps.Marker
 import kotlinx.coroutines.launch
 
 @Composable
@@ -47,12 +47,12 @@ fun MapsScreen() {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        snackbarHost = { 
+        snackbarHost = {
             SnackbarHost(hostState = snackbarHostState) { snackbarData ->
                 ErrorSnackbar(snackbarData)
             }
         },
-        contentWindowInsets = WindowInsets(0,0,0,0)
+        contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { paddingValues ->
         Map(
             modifier = Modifier.fillMaxSize().padding(paddingValues),
@@ -62,11 +62,14 @@ fun MapsScreen() {
             ),
             markers = viewModel.pins.map { pin ->
                 Marker(
-                    coordinates = Coordinates(latitude = pin.latitude ?: 0.0, longitude = pin.longitude ?: 0.0),
+                    coordinates = Coordinates(
+                        latitude = pin.latitude ?: 0.0,
+                        longitude = pin.longitude ?: 0.0
+                    ),
                     title = pin.name ?: "Unknown",
-                    androidSnippet = "Location ID: ${pin.lokasi}"
+                    contentId = "Location ID: ${pin.lokasi}"
                 )
             }
-        ) { }
+        )
     }
 }
