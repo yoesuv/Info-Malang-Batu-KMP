@@ -6,8 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yoesuv.infomalangbatukmp.core.models.PlaceModel
-import com.yoesuv.infomalangbatukmp.core.network.PlaceApiService
-import com.yoesuv.infomalangbatukmp.core.network.PlaceApiServiceImpl
+import com.yoesuv.infomalangbatukmp.core.repository.PlaceRepository
 import kotlinx.coroutines.launch
 
 sealed class ListPlaceUiState {
@@ -17,7 +16,7 @@ sealed class ListPlaceUiState {
 }
 
 class ListPlaceViewModel(
-    private val placeApiService: PlaceApiService = PlaceApiServiceImpl()
+    private val placeRepository: PlaceRepository
 ) : ViewModel() {
     var uiState by mutableStateOf<ListPlaceUiState>(ListPlaceUiState.Loading)
         private set
@@ -30,7 +29,7 @@ class ListPlaceViewModel(
         viewModelScope.launch {
             try {
                 uiState = ListPlaceUiState.Loading
-                val places = placeApiService.getPlaces()
+                val places = placeRepository.getPlaces()
                 uiState = ListPlaceUiState.Success(places)
             } catch (e: Exception) {
                 uiState = ListPlaceUiState.Error(e.message ?: "Unknown error occurred")
