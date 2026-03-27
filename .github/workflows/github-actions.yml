@@ -59,10 +59,15 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
+      - name: Build Kotlin framework
+        run: ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
+
       - name: Select Xcode 16.2
         run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
       - name: Build iOS simulator app
+        env:
+          OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED: YES
         run: |
           xcodebuild build \
             -project iosApp/iosApp.xcodeproj \
@@ -70,6 +75,9 @@ jobs:
             -configuration Debug \
             -sdk iphonesimulator \
             -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
             -verbose
 
       - name: Upload iOS app folder
