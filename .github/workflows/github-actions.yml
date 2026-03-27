@@ -59,22 +59,22 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Build Kotlin Framework
-        run: ./gradlew composeApp:linkReleaseFrameworkIosSimulatorArm64 --stacktrace
+      - name: Select Xcode 16.2
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
-      - name: Build iOS App
+      - name: Build iOS simulator app
         run: |
-          xcodebuild -project iosApp/iosApp.xcodeproj \
+          xcodebuild build \
+            -project iosApp/iosApp.xcodeproj \
             -scheme iosApp \
             -configuration Release \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -sdk iphonesimulator \
             -derivedDataPath build \
-            -skipPackagePluginUpdates \
-            build
+            -verbose
 
-      - name: Upload iOS App
+      - name: Upload iOS app folder
         uses: actions/upload-artifact@v4
         with:
           name: ios-app
-          path: build/Build/Products/Release-iphonesimulator/iosApp.app
+          path: build/Build/Products/Release-iphonesimulator/*
           retention-days: 14
