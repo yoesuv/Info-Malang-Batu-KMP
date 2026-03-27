@@ -9,7 +9,6 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.koin.compiler)
 }
 
 // Load API key from properties file
@@ -72,7 +71,6 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
-            implementation(libs.koin.annotations)
         }
         iosMain.dependencies {
             implementation(libs.ktor.darwin)
