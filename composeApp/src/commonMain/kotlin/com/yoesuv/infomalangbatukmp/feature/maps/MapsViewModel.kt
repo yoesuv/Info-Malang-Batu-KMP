@@ -6,12 +6,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yoesuv.infomalangbatukmp.core.models.PinModel
-import com.yoesuv.infomalangbatukmp.core.network.PinsApiService
-import com.yoesuv.infomalangbatukmp.core.network.PinsApiServiceImpl
+import com.yoesuv.infomalangbatukmp.core.repository.PinsRepository
 import kotlinx.coroutines.launch
 
 class MapsViewModel(
-    private val pinsApiService: PinsApiService = PinsApiServiceImpl()
+    private val pinsRepository: PinsRepository
 ) : ViewModel() {
     var pins by mutableStateOf<List<PinModel>>(emptyList())
         private set
@@ -38,7 +37,7 @@ class MapsViewModel(
     fun loadPins() {
         viewModelScope.launch {
             try {
-                val pinsData = pinsApiService.getPins()
+                val pinsData = pinsRepository.getPins()
                 updatePins(pinsData)
             } catch (e: Exception) {
                 showSnackbar("Failed to load pins: ${e.message ?: "Unknown error"}")
