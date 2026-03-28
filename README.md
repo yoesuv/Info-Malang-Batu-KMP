@@ -1,5 +1,9 @@
 # Info Malang Batu #
 
+[![Build Status](https://github.com/yoesuv/Info-Malang-Batu-KMP/actions/workflows/github-actions.yml/badge.svg)](https://github.com/yoesuv/Info-Malang-Batu-KMP/actions)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e7fdc268a7f94127bb9ba8ae9f31d6ae)](https://app.codacy.com/gh/yoesuv/Info-Malang-Batu-KMP/)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/e7fdc268a7f94127bb9ba8ae9f31d6ae)](https://app.codacy.com/gh/yoesuv/Info-Malang-Batu-KMP/)
+
 * build with kotlin multiplatform
 
 #### How to run/build this project ####
