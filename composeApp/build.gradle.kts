@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.kover)
 }
 
 // Load API key from properties file
@@ -124,5 +125,21 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+}
+
+// Kover configuration for code coverage
+kover {
+    reports {
+        filters {
+            excludes {
+                // Exclude generated code
+                classes("*Generated*")
+                // Exclude UI preview functions
+                annotatedBy("androidx.compose.ui.tooling.preview.Preview")
+                // Exclude specific packages if needed
+                packages("*.di", "*.theme")
+            }
+        }
+    }
 }
 
