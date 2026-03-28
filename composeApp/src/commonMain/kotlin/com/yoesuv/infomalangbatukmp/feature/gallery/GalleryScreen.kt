@@ -5,17 +5,17 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.yoesuv.infomalangbatukmp.core.models.GalleryModel
 import com.yoesuv.infomalangbatukmp.components.ErrorView
 import com.yoesuv.infomalangbatukmp.components.LoadingView
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun GalleryScreen(
     onGalleryClick: (GalleryModel) -> Unit = {}
 ) {
-    val viewModel = remember { GalleryViewModel() }
+    val viewModel: GalleryViewModel = koinViewModel()
 
     when (val state = viewModel.uiState) {
         is GalleryUiState.Loading -> {

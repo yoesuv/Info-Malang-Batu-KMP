@@ -6,8 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yoesuv.infomalangbatukmp.core.models.GalleryModel
-import com.yoesuv.infomalangbatukmp.core.network.GalleryApiService
-import com.yoesuv.infomalangbatukmp.core.network.GalleryApiServiceImpl
+import com.yoesuv.infomalangbatukmp.core.repository.GalleryRepository
 import kotlinx.coroutines.launch
 
 sealed class GalleryUiState {
@@ -17,7 +16,7 @@ sealed class GalleryUiState {
 }
 
 class GalleryViewModel(
-    private val galleryApiService: GalleryApiService = GalleryApiServiceImpl()
+    private val galleryRepository: GalleryRepository
 ) : ViewModel() {
 
     var uiState by mutableStateOf<GalleryUiState>(GalleryUiState.Loading)
@@ -31,7 +30,7 @@ class GalleryViewModel(
         viewModelScope.launch {
             try {
                 uiState = GalleryUiState.Loading
-                val galleries = galleryApiService.getGallery()
+                val galleries = galleryRepository.getGallery()
                 uiState = GalleryUiState.Success(galleries)
             } catch (e: Exception) {
                 uiState = GalleryUiState.Error(e.message ?: "Unknown error occurred")

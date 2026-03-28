@@ -1,0 +1,88 @@
+name: Info Malang Batu
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  android-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Decrypt API keys
+        run: gpg --batch --yes --passphrase "${{ secrets.GPG_PASSPHRASE }}" --decrypt api-key.properties.gpg > api-key.properties
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build Android APK
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: composeApp/build/outputs/apk/release/*.apk
+          retention-days: 14
+
+  ios-build:
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Decrypt API keys
+        run: gpg --batch --yes --passphrase "${{ secrets.GPG_PASSPHRASE }}" --decrypt api-key.properties.gpg > api-key.properties
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Select Xcode
+        run: |
+          # List available Xcode versions for debugging
+          ls /Applications/ | grep Xcode
+          # Use the default Xcode version on the runner
+          xcode-select -p
+          xcodebuild -version
+
+      - name: Build iOS simulator app
+        run: |
+          xcodebuild build \
+            -project iosApp/iosApp.xcodeproj \
+            -scheme iosApp \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO
+
+      - name: Upload iOS app folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-app
+          path: build/Build/Products/Debug-iphonesimulator/*
+          retention-days: 14

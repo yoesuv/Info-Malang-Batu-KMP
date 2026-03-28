@@ -20,6 +20,7 @@ import com.swmansion.kmpmaps.core.Map
 import com.swmansion.kmpmaps.core.Marker
 import com.yoesuv.infomalangbatukmp.core.theme.AppColors
 import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ErrorSnackbar(snackbarData: SnackbarData) {
@@ -32,7 +33,7 @@ fun ErrorSnackbar(snackbarData: SnackbarData) {
 
 @Composable
 fun MapsScreen() {
-    val viewModel = remember { MapsViewModel() }
+    val viewModel: MapsViewModel = koinViewModel()
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
