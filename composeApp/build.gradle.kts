@@ -78,6 +78,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
     }
 }
@@ -97,6 +98,11 @@ android {
         // Inject Google Maps API key into manifest
         manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = googleMapsApiKey
     }
+    
+    sourceSets {
+        getByName("test").resources.srcDirs("src/commonTest/resources")
+    }
+    
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
