@@ -17,6 +17,10 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalCoroutinesApi::class)
 class ListPlaceViewModelTest {
 
+    private companion object {
+        private const val NETWORK_ERROR_MESSAGE = "Network error"
+    }
+
     private lateinit var mockRepository: PlaceRepositoryMock
     private lateinit var viewModel: ListPlaceViewModel
     private val testDispatcher = StandardTestDispatcher()
@@ -51,20 +55,20 @@ class ListPlaceViewModelTest {
     @Test
     fun loadPlaces_error_setsErrorState() = runTest {
         mockRepository.throwException = true
-        mockRepository.exceptionMessage = "Network error"
+        mockRepository.exceptionMessage = NETWORK_ERROR_MESSAGE
 
         val viewModelWithError = ListPlaceViewModel(mockRepository)
         testDispatcher.scheduler.advanceUntilIdle()
 
         val state = viewModelWithError.uiState
         assertIs<ListPlaceUiState.Error>(state)
-        assertEquals("Network error", state.message)
+        assertEquals(NETWORK_ERROR_MESSAGE, state.message)
     }
 
     @Test
     fun retryLoad_reloadsDataAfterError() = runTest {
         mockRepository.throwException = true
-        mockRepository.exceptionMessage = "Network error"
+        mockRepository.exceptionMessage = NETWORK_ERROR_MESSAGE
 
         val viewModelWithError = ListPlaceViewModel(mockRepository)
         testDispatcher.scheduler.advanceUntilIdle()

@@ -1,6 +1,7 @@
 package com.yoesuv.infomalangbatukmp.core.repository
 
 import com.yoesuv.infomalangbatukmp.core.network.PlaceApiServiceMock
+import java.io.IOException
 
 class PlaceRepositoryMock(
     private val delegate: PlaceRepository = PlaceRepositoryImpl(PlaceApiServiceMock())
@@ -10,7 +11,7 @@ class PlaceRepositoryMock(
     var exceptionMessage = "Test error"
 
     override suspend fun getPlaces() = if (throwException) {
-        throw RuntimeException(exceptionMessage)
+        throw IOException(exceptionMessage)
     } else {
         delegate.getPlaces()
     }
