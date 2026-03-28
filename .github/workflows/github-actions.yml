@@ -28,6 +28,15 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
+      - name: Run tests with coverage
+        run: ./gradlew :composeApp:testDebugUnitTest :composeApp:koverXmlReport --stacktrace
+
+      - name: Upload coverage report to Codacy
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: composeApp/build/reports/kover/report.xml
+
       - name: Build Android APK
         run: ./gradlew assembleRelease --stacktrace
 

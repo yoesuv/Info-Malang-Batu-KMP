@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.kover)
 }
 
 // Load API key from properties file
@@ -77,6 +78,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
     }
 }
@@ -96,6 +98,11 @@ android {
         // Inject Google Maps API key into manifest
         manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = googleMapsApiKey
     }
+    
+    sourceSets {
+        getByName("test").resources.srcDirs("src/commonTest/resources")
+    }
+    
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -124,5 +131,21 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+}
+
+// Kover configuration for code coverage
+kover {
+    reports {
+        filters {
+            excludes {
+                // Exclude generated code
+                classes("*Generated*")
+                // Exclude UI preview functions
+                annotatedBy("androidx.compose.ui.tooling.preview.Preview")
+                // Exclude specific packages if needed
+                packages("*.di", "*.theme")
+            }
+        }
+    }
 }
 
