@@ -34,6 +34,7 @@ class MapsViewModel(
         snackbarMessage = null
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun loadPins() {
         viewModelScope.launch {
             try {
