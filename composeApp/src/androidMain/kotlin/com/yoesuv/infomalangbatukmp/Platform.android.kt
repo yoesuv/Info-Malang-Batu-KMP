@@ -1,5 +1,6 @@
 package com.yoesuv.infomalangbatukmp
 
+import android.content.pm.PackageManager
 import android.os.Build
 import android.content.Context
 
@@ -14,7 +15,7 @@ actual fun getAppVersion(): String {
         val context = MainActivityHolder.applicationContext
         val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
         packageInfo.versionName ?: "1.0.0"
-    } catch (e: Exception) {
+    } catch (e: PackageManager.NameNotFoundException) {
         "1.0.0"
     }
 }
