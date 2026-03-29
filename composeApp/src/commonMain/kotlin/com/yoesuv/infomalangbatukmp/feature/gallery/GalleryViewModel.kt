@@ -26,6 +26,7 @@ class GalleryViewModel(
         loadGallery()
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun loadGallery() {
         viewModelScope.launch {
             try {

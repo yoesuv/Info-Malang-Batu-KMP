@@ -25,6 +25,7 @@ class ListPlaceViewModel(
         loadPlaces()
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun loadPlaces() {
         viewModelScope.launch {
             try {
