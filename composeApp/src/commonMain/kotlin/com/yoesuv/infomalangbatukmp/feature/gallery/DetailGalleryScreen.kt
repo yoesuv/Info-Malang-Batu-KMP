@@ -8,17 +8,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
+import com.yoesuv.infomalangbatukmp.components.AppNetworkImage
 import com.yoesuv.infomalangbatukmp.components.AppTopBar
 import infomalangbatukmp.composeapp.generated.resources.Res
 import infomalangbatukmp.composeapp.generated.resources.detail_gallery
-import infomalangbatukmp.composeapp.generated.resources.placeholder_image
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -39,15 +36,12 @@ fun DetailGalleryScreen(
         )
 
         // Image
-        AsyncImage(
-            model = image,
+        AppNetworkImage(
+            url = image,
             contentDescription = caption,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(250.dp),
-            placeholder = painterResource(Res.drawable.placeholder_image),
-            error = painterResource(Res.drawable.placeholder_image),
-            contentScale = ContentScale.Crop
+                .height(250.dp)
         )
 
         // Caption Text

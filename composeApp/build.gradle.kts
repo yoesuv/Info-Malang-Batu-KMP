@@ -142,8 +142,10 @@ kover {
                 classes("*Generated*")
                 // Exclude UI preview functions
                 annotatedBy("androidx.compose.ui.tooling.preview.Preview")
-                // Exclude specific packages if needed
-                packages("*.di", "*.theme")
+                // Exclude specific packages
+                classes("*.di.*", "*.theme.*")
+                // Exclude generated resources package
+                classes("infomalangbatukmp.composeapp.generated.resources.*")
             }
         }
     }
