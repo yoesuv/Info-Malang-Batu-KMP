@@ -1,11 +1,10 @@
 package com.yoesuv.infomalangbatukmp.feature.about
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import infomalangbatukmp.composeapp.generated.resources.Res
-import infomalangbatukmp.composeapp.generated.resources.changelog_desc_1_0_0
-import infomalangbatukmp.composeapp.generated.resources.changelog_desc_1_0_1
-import infomalangbatukmp.composeapp.generated.resources.changelog_version_1_0_0
-import infomalangbatukmp.composeapp.generated.resources.changelog_version_1_0_1
+import com.yoesuv.infomalangbatukmp.core.repository.ChangelogRepository
 import org.jetbrains.compose.resources.StringResource
 
 data class ChangeLogResource(
@@ -13,15 +12,34 @@ data class ChangeLogResource(
     val descriptionRes: StringResource
 )
 
-class ChangelogViewModel : ViewModel() {
-    val changelogResources = listOf(
-        ChangeLogResource(
-            versionRes = Res.string.changelog_version_1_0_1,
-            descriptionRes = Res.string.changelog_desc_1_0_1
-        ),
-        ChangeLogResource(
-            versionRes = Res.string.changelog_version_1_0_0,
-            descriptionRes = Res.string.changelog_desc_1_0_0
-        )
-    )
+sealed class ChangelogUiState {
+    object Loading : ChangelogUiState()
+    data class Success(val changelogs: List<ChangeLogResource>) : ChangelogUiState()
+    data class Error(val message: String) : ChangelogUiState()
+}
+
+class ChangelogViewModel(
+    private val changelogRepository: ChangelogRepository
+) : ViewModel() {
+
+    var uiState by mutableStateOf<ChangelogUiState>(ChangelogUiState.Loading)
+        private set
+
+    init {
+        loadChangelogs()
+    }
+
+    fun loadChangelogs() {
+        try {
+            uiState = ChangelogUiState.Loading
+            val changelogs = changelogRepository.getChangelogResources()
+            uiState = ChangelogUiState.Success(changelogs)
+        } catch (e: Exception) {
+            uiState = ChangelogUiState.Error(e.message ?: "Unknown error occurred")
+        }
+    }
+
+    fun retryLoad() {
+        loadChangelogs()
+    }
 }

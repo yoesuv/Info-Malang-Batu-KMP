@@ -10,31 +10,47 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yoesuv.infomalangbatukmp.components.ErrorView
+import com.yoesuv.infomalangbatukmp.components.LoadingView
 import com.yoesuv.infomalangbatukmp.core.models.ChangeLogModel
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TabChangelog() {
-    val viewModel = remember { ChangelogViewModel() }
-    val changelogItems = viewModel.changelogResources.mapIndexed { index, item ->
-        ChangeLogModel(
-            version = stringResource(item.versionRes),
-            description = stringResource(item.descriptionRes),
-            isLast = index == viewModel.changelogResources.lastIndex
-        )
-    }
+    val viewModel: ChangelogViewModel = koinViewModel()
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp)
-    ) {
-        items(changelogItems) { item ->
-            ItemChangeLog(changelog = item)
+    when (val state = viewModel.uiState) {
+        is ChangelogUiState.Loading -> {
+            LoadingView()
+        }
+        is ChangelogUiState.Success -> {
+            val changelogItems = state.changelogs.mapIndexed { index, item ->
+                ChangeLogModel(
+                    version = stringResource(item.versionRes),
+                    description = stringResource(item.descriptionRes),
+                    isLast = index == state.changelogs.lastIndex
+                )
+            }
+
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                items(changelogItems) { item ->
+                    ItemChangeLog(changelog = item)
+                }
+            }
+        }
+        is ChangelogUiState.Error -> {
+            ErrorView(
+                message = state.message,
+                onRetry = { viewModel.retryLoad() }
+            )
         }
     }
 }
