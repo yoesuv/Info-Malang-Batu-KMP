@@ -24,6 +24,7 @@ class LibrariesViewModel(
         loadLibraries()
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun loadLibraries() {
         try {
             uiState = LibrariesUiState.Loading

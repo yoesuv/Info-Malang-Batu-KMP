@@ -29,6 +29,7 @@ class ChangelogViewModel(
         loadChangelogs()
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun loadChangelogs() {
         try {
             uiState = ChangelogUiState.Loading
