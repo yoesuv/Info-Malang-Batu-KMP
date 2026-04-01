@@ -17,6 +17,8 @@
     <string name="changelog_desc_1_0_0">initial release</string>
     <string name="changelog_version_1_0_1">1.0.1</string>
     <string name="changelog_desc_1_0_1">update libraries</string>
+    <string name="changelog_version_1_0_2">1.0.2</string>
+    <string name="changelog_desc_1_0_2">add dependency injection, kover code coverage, add mock test</string>
 
     <string name="compose_multiplatform">Compose Multiplatform</string>
     <string name="compose_multiplatform_url">https://www.jetbrains.com/compose-multiplatform/</string>
