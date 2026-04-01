@@ -24,7 +24,7 @@ class LibrariesViewModelTest {
     @Test
     fun init_loadsLibrariesSuccessfully() {
         assertIs<LibrariesUiState.Success>(viewModel.uiState)
-        assertEquals(6, (viewModel.uiState as LibrariesUiState.Success).libraries.size)
+        assertEquals(8, (viewModel.uiState as LibrariesUiState.Success).libraries.size)
     }
 
     @Test
@@ -50,6 +50,6 @@ class LibrariesViewModelTest {
         viewModelWithError.retryLoad()
 
         assertIs<LibrariesUiState.Success>(viewModelWithError.uiState)
-        assertEquals(6, (viewModelWithError.uiState as LibrariesUiState.Success).libraries.size)
+        assertEquals(8, (viewModelWithError.uiState as LibrariesUiState.Success).libraries.size)
     }
 }

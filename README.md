@@ -20,6 +20,8 @@ GOOGLE_MAPS_API_KEY = your_maps_api_key
 #### List Library ####
 - [Coil](https://coil-kt.github.io/coil/)
 - [KMP Maps](https://github.com/software-mansion/kmp-maps)
+- [Koin](https://insert-koin.io/)
+- [Kotlinx Kover](https://github.com/Kotlin/kotlinx-kover)
 - [KotlinX Serialization](https://github.com/Kotlin/kotlinx.serialization)
 - [Ksoup](https://github.com/fleeksoft/ksoup)
 - [Ktor](https://ktor.io/)

@@ -11,6 +11,12 @@ import infomalangbatukmp.composeapp.generated.resources.compose_multiplatform_ur
 import infomalangbatukmp.composeapp.generated.resources.kmp_maps
 import infomalangbatukmp.composeapp.generated.resources.kmp_maps_license
 import infomalangbatukmp.composeapp.generated.resources.kmp_maps_url
+import infomalangbatukmp.composeapp.generated.resources.koin
+import infomalangbatukmp.composeapp.generated.resources.koin_license
+import infomalangbatukmp.composeapp.generated.resources.koin_url
+import infomalangbatukmp.composeapp.generated.resources.kotlinx_kover
+import infomalangbatukmp.composeapp.generated.resources.kotlinx_kover_license
+import infomalangbatukmp.composeapp.generated.resources.kotlinx_kover_url
 import infomalangbatukmp.composeapp.generated.resources.kotlinx_serialization
 import infomalangbatukmp.composeapp.generated.resources.kotlinx_serialization_license
 import infomalangbatukmp.composeapp.generated.resources.kotlinx_serialization_url
@@ -40,6 +46,18 @@ class LibrariesRepositoryImpl : LibrariesRepository {
                 name = Res.string.kmp_maps,
                 url = Res.string.kmp_maps_url,
                 license = Res.string.kmp_maps_license,
+                isLast = false
+            ),
+            LibraryModel(
+                name = Res.string.koin,
+                url = Res.string.koin_url,
+                license = Res.string.koin_license,
+                isLast = false
+            ),
+            LibraryModel(
+                name = Res.string.kotlinx_kover,
+                url = Res.string.kotlinx_kover_url,
+                license = Res.string.kotlinx_kover_license,
                 isLast = false
             ),
             LibraryModel(

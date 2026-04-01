@@ -24,7 +24,7 @@ class ChangelogViewModelTest {
     @Test
     fun init_loadsChangelogsSuccessfully() {
         assertIs<ChangelogUiState.Success>(viewModel.uiState)
-        assertEquals(2, (viewModel.uiState as ChangelogUiState.Success).changelogs.size)
+        assertEquals(3, (viewModel.uiState as ChangelogUiState.Success).changelogs.size)
     }
 
     @Test
@@ -50,6 +50,6 @@ class ChangelogViewModelTest {
         viewModelWithError.retryLoad()
 
         assertIs<ChangelogUiState.Success>(viewModelWithError.uiState)
-        assertEquals(2, (viewModelWithError.uiState as ChangelogUiState.Success).changelogs.size)
+        assertEquals(3, (viewModelWithError.uiState as ChangelogUiState.Success).changelogs.size)
     }
 }
