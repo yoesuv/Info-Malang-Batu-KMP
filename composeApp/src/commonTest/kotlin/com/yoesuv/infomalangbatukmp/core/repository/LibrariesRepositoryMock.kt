@@ -8,7 +8,7 @@ class LibrariesRepositoryMock(
     var exceptionMessage = "Test error"
 
     override fun getLibraries() = if (throwException) {
-        throw RuntimeException(exceptionMessage)
+        throw IllegalStateException(exceptionMessage)
     } else {
         delegate.getLibraries()
     }

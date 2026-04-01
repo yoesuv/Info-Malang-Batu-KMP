@@ -8,7 +8,7 @@ class ChangelogRepositoryMock(
     var exceptionMessage = "Test error"
 
     override fun getChangelogResources() = if (throwException) {
-        throw RuntimeException(exceptionMessage)
+        throw IllegalStateException(exceptionMessage)
     } else {
         delegate.getChangelogResources()
     }
