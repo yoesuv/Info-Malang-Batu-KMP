@@ -108,6 +108,7 @@ android {
     
     sourceSets {
         getByName("test").resources.srcDirs("src/commonTest/resources")
+        getByName("androidTest").resources.srcDirs("src/commonTest/resources")
     }
     
     packaging {
