@@ -108,7 +108,10 @@ android {
     
     sourceSets {
         getByName("test").resources.srcDirs("src/commonTest/resources")
-        getByName("androidTest").resources.srcDirs("src/commonTest/resources")
+    }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
     }
     
     packaging {
@@ -140,9 +143,9 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
     debugImplementation(libs.compose.ui.test.manifest)
-    androidTestImplementation(libs.compose.ui.test)
-    androidTestImplementation(libs.androidx.testExt.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.kotlin.testJunit)
+    testImplementation(libs.androidx.testExt.junit)
 }
 
 // Kover configuration for code coverage
