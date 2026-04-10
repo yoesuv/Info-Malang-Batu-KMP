@@ -31,6 +31,19 @@ jobs:
       - name: Run tests with coverage
         run: ./gradlew :composeApp:testDebugUnitTest :composeApp:koverXmlReport --stacktrace
 
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run instrumented tests on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          script: ./gradlew :composeApp:connectedDebugAndroidTest --stacktrace
+
       - name: Upload coverage report to Codacy
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:

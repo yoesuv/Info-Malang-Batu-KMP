@@ -131,6 +131,8 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    androidTestImplementation(libs.androidx.testExt.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
 
 // Kover configuration for code coverage
