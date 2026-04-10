@@ -16,19 +16,29 @@ fun ListPlaceScreen(
     onPlaceClick: (PlaceModel, AppRoute.DetailListPlace) -> Unit = { _, _ -> }
 ) {
     val viewModel: ListPlaceViewModel = koinViewModel()
-    
-    when (val state = viewModel.uiState) {
-        is ListPlaceUiState.Loading -> {
-            LoadingView()
-        }
+    ListPlaceContent(
+        uiState = viewModel.uiState,
+        onPlaceClick = onPlaceClick,
+        onRetry = { viewModel.retryLoad() }
+    )
+}
+
+@Composable
+fun ListPlaceContent(
+    uiState: ListPlaceUiState,
+    onPlaceClick: (PlaceModel, AppRoute.DetailListPlace) -> Unit = { _, _ -> },
+    onRetry: () -> Unit = {}
+) {
+    when (uiState) {
+        is ListPlaceUiState.Loading -> LoadingView()
         is ListPlaceUiState.Success -> {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                items(state.places) { place ->
+                items(uiState.places) { place ->
                     ItemPlaceView(
                         place = place,
-                        onClick = { 
+                        onClick = {
                             val detailRoute = AppRoute.DetailListPlace(
                                 imageUrl = place.gambar.orEmpty(),
                                 title = place.nama.orEmpty(),
@@ -40,11 +50,9 @@ fun ListPlaceScreen(
                 }
             }
         }
-        is ListPlaceUiState.Error -> {
-            ErrorView(
-                message = state.message,
-                onRetry = { viewModel.retryLoad() }
-            )
-        }
+        is ListPlaceUiState.Error -> ErrorView(
+            message = uiState.message,
+            onRetry = onRetry
+        )
     }
 }
