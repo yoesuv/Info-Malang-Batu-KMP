@@ -11,9 +11,14 @@ import kotlin.test.assertTrue
 
 class ItemPlaceViewTest {
 
+    companion object {
+        private const val PLACE_NAME = "Alun Alun Malang"
+        private const val PLACE_LOCATION = "Malang"
+    }
+
     private val testPlace = PlaceModel(
-        nama = "Alun Alun Malang",
-        lokasi = "Malang",
+        nama = PLACE_NAME,
+        lokasi = PLACE_LOCATION,
         deskripsi = "Deskripsi tempat wisata",
         thumbnail = "https://example.com/thumb.jpg",
         gambar = "https://example.com/image.jpg"
@@ -26,7 +31,7 @@ class ItemPlaceViewTest {
             ItemPlaceView(place = testPlace, onClick = {})
         }
 
-        onNodeWithText("Alun Alun Malang").assertIsDisplayed()
+        onNodeWithText(PLACE_NAME).assertIsDisplayed()
     }
 
     @OptIn(ExperimentalTestApi::class)
@@ -36,7 +41,7 @@ class ItemPlaceViewTest {
             ItemPlaceView(place = testPlace, onClick = {})
         }
 
-        onNodeWithText("Malang").assertIsDisplayed()
+        onNodeWithText(PLACE_LOCATION).assertIsDisplayed()
     }
 
     @OptIn(ExperimentalTestApi::class)
@@ -72,7 +77,7 @@ class ItemPlaceViewTest {
             ItemPlaceView(place = testPlace, onClick = { clicked = true })
         }
 
-        onNodeWithText("Alun Alun Malang").performClick()
+        onNodeWithText(PLACE_NAME).performClick()
 
         assertTrue(clicked)
     }
