@@ -8,6 +8,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.yoesuv.infomalangbatukmp.core.models.PlaceModel
+import com.yoesuv.infomalangbatukmp.testdata.PlaceTestData
 import kotlin.test.Test
 import kotlin.test.assertTrue
 import org.junit.runner.RunWith
@@ -18,19 +19,10 @@ import org.robolectric.annotation.Config
 class ListPlaceContentTest {
 
     companion object {
-        private const val PLACE_NAME = "Alun Alun Malang"
-        private const val PLACE_LOCATION = "Kota Malang"
+        private const val RETRY_LABEL = "Retry"
     }
 
-    private val testPlaces = listOf(
-        PlaceModel(
-            nama = PLACE_NAME,
-            lokasi = PLACE_LOCATION,
-            deskripsi = "Deskripsi tempat wisata",
-            thumbnail = "https://example.com/thumb.jpg",
-            gambar = "https://example.com/image.jpg"
-        )
-    )
+    private val testPlaces = listOf(PlaceTestData.createPlace())
 
     @OptIn(ExperimentalTestApi::class)
     @Test
@@ -49,7 +41,7 @@ class ListPlaceContentTest {
             ListPlaceContent(uiState = ListPlaceUiState.Success(testPlaces))
         }
 
-        onNodeWithText(PLACE_NAME).assertIsDisplayed()
+        onNodeWithText(PlaceTestData.PLACE_NAME).assertIsDisplayed()
     }
 
     @OptIn(ExperimentalTestApi::class)
@@ -59,7 +51,7 @@ class ListPlaceContentTest {
             ListPlaceContent(uiState = ListPlaceUiState.Success(testPlaces))
         }
 
-        onNodeWithText(PLACE_LOCATION).assertIsDisplayed()
+        onNodeWithText(PlaceTestData.PLACE_LOCATION).assertIsDisplayed()
     }
 
     @OptIn(ExperimentalTestApi::class)
@@ -80,7 +72,7 @@ class ListPlaceContentTest {
             ListPlaceContent(uiState = ListPlaceUiState.Error("Error"))
         }
 
-        onNodeWithText("Retry").assertIsDisplayed()
+        onNodeWithText(RETRY_LABEL).assertIsDisplayed()
     }
 
     @OptIn(ExperimentalTestApi::class)
@@ -95,7 +87,7 @@ class ListPlaceContentTest {
             )
         }
 
-        onNodeWithText("Retry").performClick()
+        onNodeWithText(RETRY_LABEL).performClick()
 
         assertTrue(retried)
     }
@@ -112,7 +104,7 @@ class ListPlaceContentTest {
             )
         }
 
-        onNodeWithText(PLACE_NAME).performClick()
+        onNodeWithText(PlaceTestData.PLACE_NAME).performClick()
 
         assertTrue(clicked)
     }
@@ -121,17 +113,19 @@ class ListPlaceContentTest {
     @Test
     fun successState_showsMultiplePlaces() = runComposeUiTest {
         val multiplePlaces = listOf(
-            PlaceModel(nama = "Alun Alun Malang", lokasi = "Kota Malang",
-                deskripsi = "Desc 1", thumbnail = "", gambar = ""),
-            PlaceModel(nama = "Alun Alun Batu", lokasi = "Kota Batu",
-                deskripsi = "Desc 2", thumbnail = "", gambar = "")
+            PlaceTestData.createPlace(),
+            PlaceTestData.createPlace(
+                nama = "Alun Alun Batu",
+                lokasi = "Kota Batu",
+                deskripsi = "Desc 2"
+            )
         )
 
         setContent {
             ListPlaceContent(uiState = ListPlaceUiState.Success(multiplePlaces))
         }
 
-        onNodeWithText("Alun Alun Malang").assertIsDisplayed()
-        onNodeWithText("Alun Alun Batu").assertIsDisplayed()
+        onNodeWithText(PlaceTestData.PLACE_NAME).assertIsDisplayed()
+        onNodeWithText(PlaceTestData.PLACE_LOCATION).assertIsDisplayed()
     }
 }

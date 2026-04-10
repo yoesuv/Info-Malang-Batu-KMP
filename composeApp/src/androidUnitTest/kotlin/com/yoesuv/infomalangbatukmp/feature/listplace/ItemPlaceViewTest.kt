@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.yoesuv.infomalangbatukmp.core.models.PlaceModel
+import com.yoesuv.infomalangbatukmp.testdata.PlaceTestData
 import kotlin.test.Test
 import kotlin.test.assertTrue
 import org.junit.runner.RunWith
@@ -17,18 +17,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [33], application = Application::class)
 class ItemPlaceViewTest {
 
-    companion object {
-        private const val PLACE_NAME = "Alun Alun Malang"
-        private const val PLACE_LOCATION = "Malang"
-    }
-
-    private val testPlace = PlaceModel(
-        nama = PLACE_NAME,
-        lokasi = PLACE_LOCATION,
-        deskripsi = "Deskripsi tempat wisata",
-        thumbnail = "https://example.com/thumb.jpg",
-        gambar = "https://example.com/image.jpg"
-    )
+    private val testPlace = PlaceTestData.createPlace()
 
     @OptIn(ExperimentalTestApi::class)
     @Test
@@ -37,7 +26,7 @@ class ItemPlaceViewTest {
             ItemPlaceView(place = testPlace, onClick = {})
         }
 
-        onNodeWithText(PLACE_NAME).assertIsDisplayed()
+        onNodeWithText(PlaceTestData.PLACE_NAME).assertIsDisplayed()
     }
 
     @OptIn(ExperimentalTestApi::class)
@@ -47,13 +36,13 @@ class ItemPlaceViewTest {
             ItemPlaceView(place = testPlace, onClick = {})
         }
 
-        onNodeWithText(PLACE_LOCATION).assertIsDisplayed()
+        onNodeWithText(PlaceTestData.PLACE_LOCATION).assertIsDisplayed()
     }
 
     @OptIn(ExperimentalTestApi::class)
     @Test
     fun displaysEmptyStringsWhenNameIsNull() = runComposeUiTest {
-        val nullNamePlace = testPlace.copy(nama = null)
+        val nullNamePlace = PlaceTestData.createPlace(nama = null)
 
         setContent {
             ItemPlaceView(place = nullNamePlace, onClick = {})
@@ -65,7 +54,7 @@ class ItemPlaceViewTest {
     @OptIn(ExperimentalTestApi::class)
     @Test
     fun displaysEmptyStringsWhenLocationIsNull() = runComposeUiTest {
-        val nullLocationPlace = testPlace.copy(lokasi = null)
+        val nullLocationPlace = PlaceTestData.createPlace(lokasi = null)
 
         setContent {
             ItemPlaceView(place = nullLocationPlace, onClick = {})
@@ -83,7 +72,7 @@ class ItemPlaceViewTest {
             ItemPlaceView(place = testPlace, onClick = { clicked = true })
         }
 
-        onNodeWithText(PLACE_NAME).performClick()
+        onNodeWithText(PlaceTestData.PLACE_NAME).performClick()
 
         assertTrue(clicked)
     }
