@@ -16,8 +16,20 @@ fun GalleryScreen(
     onGalleryClick: (GalleryModel) -> Unit = {}
 ) {
     val viewModel: GalleryViewModel = koinViewModel()
+    GalleryContent(
+        uiState = viewModel.uiState,
+        onGalleryClick = onGalleryClick,
+        onRetry = { viewModel.retryLoad() }
+    )
+}
 
-    when (val state = viewModel.uiState) {
+@Composable
+fun GalleryContent(
+    uiState: GalleryUiState,
+    onGalleryClick: (GalleryModel) -> Unit = {},
+    onRetry: () -> Unit = {}
+) {
+    when (uiState) {
         is GalleryUiState.Loading -> {
             LoadingView(message = "Loading gallery...")
         }
@@ -26,7 +38,7 @@ fun GalleryScreen(
                 columns = GridCells.Fixed(3),
                 modifier = Modifier.fillMaxSize(),
             ) {
-                items(state.galleries) { gallery ->
+                items(uiState.galleries) { gallery ->
                     ItemGalleryView(
                         gallery = gallery,
                         onClick = { onGalleryClick(gallery) }
@@ -37,8 +49,8 @@ fun GalleryScreen(
         is GalleryUiState.Error -> {
             ErrorView(
                 title = "Error loading gallery",
-                message = state.message,
-                onRetry = { viewModel.retryLoad() }
+                message = uiState.message,
+                onRetry = onRetry
             )
         }
     }

@@ -28,7 +28,7 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Run tests with coverage
+      - name: Run unit tests with coverage
         run: ./gradlew :composeApp:testDebugUnitTest :composeApp:koverXmlReport --stacktrace
 
       - name: Upload coverage report to Codacy

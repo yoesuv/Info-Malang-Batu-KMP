@@ -1,5 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import java.util.Properties
 import java.io.FileInputStream
 
@@ -22,11 +24,14 @@ val googleMapsApiKey = apiKeyProperties.getProperty("GOOGLE_MAPS_API_KEY", "")
 
 kotlin {
     androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -79,6 +84,7 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.compose.ui.test)
         }
     }
 }
@@ -94,6 +100,7 @@ android {
         versionCode = 1
         versionName = "1.0.2"
         setProperty("archivesBaseName", "$applicationId-$versionName")
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         
         // Inject Google Maps API key into manifest
         manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = googleMapsApiKey
@@ -101,6 +108,10 @@ android {
     
     sourceSets {
         getByName("test").resources.srcDirs("src/commonTest/resources")
+    }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
     }
     
     packaging {
@@ -131,6 +142,10 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    debugImplementation(libs.compose.ui.test.manifest)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.kotlin.testJunit)
+    testImplementation(libs.androidx.testExt.junit)
 }
 
 // Kover configuration for code coverage
