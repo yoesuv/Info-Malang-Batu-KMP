@@ -23,17 +23,27 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun TabChangelog() {
     val viewModel: ChangelogViewModel = koinViewModel()
+    ChangelogContent(
+        uiState = viewModel.uiState,
+        onRetry = { viewModel.retryLoad() }
+    )
+}
 
-    when (val state = viewModel.uiState) {
+@Composable
+fun ChangelogContent(
+    uiState: ChangelogUiState,
+    onRetry: () -> Unit = {}
+) {
+    when (uiState) {
         is ChangelogUiState.Loading -> {
             LoadingView()
         }
         is ChangelogUiState.Success -> {
-            val changelogItems = state.changelogs.mapIndexed { index, item ->
+            val changelogItems = uiState.changelogs.mapIndexed { index, item ->
                 ChangeLogModel(
                     version = stringResource(item.versionRes),
                     description = stringResource(item.descriptionRes),
-                    isLast = index == state.changelogs.lastIndex
+                    isLast = index == uiState.changelogs.lastIndex
                 )
             }
 
@@ -48,8 +58,8 @@ fun TabChangelog() {
         }
         is ChangelogUiState.Error -> {
             ErrorView(
-                message = state.message,
-                onRetry = { viewModel.retryLoad() }
+                message = uiState.message,
+                onRetry = onRetry
             )
         }
     }

@@ -28,8 +28,18 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun TabLibraries() {
     val viewModel: LibrariesViewModel = koinViewModel()
+    LibrariesContent(
+        uiState = viewModel.uiState,
+        onRetry = { viewModel.retryLoad() }
+    )
+}
 
-    when (val state = viewModel.uiState) {
+@Composable
+fun LibrariesContent(
+    uiState: LibrariesUiState,
+    onRetry: () -> Unit = {}
+) {
+    when (uiState) {
         is LibrariesUiState.Loading -> {
             LoadingView()
         }
@@ -38,15 +48,15 @@ fun TabLibraries() {
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(16.dp)
             ) {
-                items(state.libraries) { lib ->
+                items(uiState.libraries) { lib ->
                     ItemLibrary(library = lib)
                 }
             }
         }
         is LibrariesUiState.Error -> {
             ErrorView(
-                message = state.message,
-                onRetry = { viewModel.retryLoad() }
+                message = uiState.message,
+                onRetry = onRetry
             )
         }
     }
