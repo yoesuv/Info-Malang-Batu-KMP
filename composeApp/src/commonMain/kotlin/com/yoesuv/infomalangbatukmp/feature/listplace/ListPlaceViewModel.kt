@@ -5,15 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yoesuv.infomalangbatukmp.core.models.PlaceModel
 import com.yoesuv.infomalangbatukmp.core.repository.PlaceRepository
 import kotlinx.coroutines.launch
-
-sealed class ListPlaceUiState {
-    object Loading : ListPlaceUiState()
-    data class Success(val places: List<PlaceModel>) : ListPlaceUiState()
-    data class Error(val message: String) : ListPlaceUiState()
-}
 
 class ListPlaceViewModel(
     private val placeRepository: PlaceRepository

@@ -18,6 +18,8 @@ import com.swmansion.kmpmaps.core.CameraPosition
 import com.swmansion.kmpmaps.core.Coordinates
 import com.swmansion.kmpmaps.core.Map
 import com.swmansion.kmpmaps.core.Marker
+import com.yoesuv.infomalangbatukmp.components.ErrorView
+import com.yoesuv.infomalangbatukmp.components.LoadingView
 import com.yoesuv.infomalangbatukmp.core.theme.AppColors
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -37,11 +39,11 @@ fun MapsScreen() {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(viewModel.snackbarMessage) {
-        viewModel.snackbarMessage?.let { message ->
+    LaunchedEffect(viewModel.uiState) {
+        if (viewModel.uiState is MapsUiState.Error) {
+            val message = (viewModel.uiState as MapsUiState.Error).message
             coroutineScope.launch {
                 snackbarHostState.showSnackbar(message)
-                viewModel.clearSnackbar()
             }
         }
     }
@@ -55,22 +57,44 @@ fun MapsScreen() {
         },
         contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { paddingValues ->
-        Map(
+        MapsContent(
             modifier = Modifier.fillMaxSize().padding(paddingValues),
-            cameraPosition = CameraPosition(
-                coordinates = Coordinates(-7.982914, 112.630875),
-                zoom = 9f,
-            ),
-            markers = viewModel.pins.map { pin ->
-                Marker(
-                    coordinates = Coordinates(
-                        latitude = pin.latitude ?: 0.0,
-                        longitude = pin.longitude ?: 0.0
-                    ),
-                    title = pin.name ?: "Unknown",
-                    contentId = "Location ID: ${pin.lokasi}"
-                )
-            }
+            uiState = viewModel.uiState,
+            onRetry = { viewModel.retryLoad() }
+        )
+    }
+}
+
+@Composable
+fun MapsContent(
+    modifier: Modifier = Modifier,
+    uiState: MapsUiState,
+    onRetry: () -> Unit = {}
+) {
+    when (uiState) {
+        is MapsUiState.Loading -> LoadingView()
+        is MapsUiState.Success -> {
+            Map(
+                modifier = modifier,
+                cameraPosition = CameraPosition(
+                    coordinates = Coordinates(-7.982914, 112.630875),
+                    zoom = 9f,
+                ),
+                markers = uiState.pins.map { pin ->
+                    Marker(
+                        coordinates = Coordinates(
+                            latitude = pin.latitude ?: 0.0,
+                            longitude = pin.longitude ?: 0.0
+                        ),
+                        title = pin.name ?: "Unknown",
+                        contentId = "Location ID: ${pin.lokasi}"
+                    )
+                }
+            )
+        }
+        is MapsUiState.Error -> ErrorView(
+            message = uiState.message,
+            onRetry = onRetry
         )
     }
 }

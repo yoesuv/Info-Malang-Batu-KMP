@@ -11,7 +11,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MapsViewModelTest {
@@ -37,54 +37,61 @@ class MapsViewModelTest {
     }
 
     @Test
-    fun initialState_emptyPins() {
-        assertEquals(0, viewModel.pins.size)
-        assertNull(viewModel.snackbarMessage)
+    fun initialState_isLoading() {
+        assertTrue(viewModel.uiState is MapsUiState.Loading)
     }
 
     @Test
-    fun loadPins_success_updatesPins() = runTest {
+    fun loadPins_success_updatesToSuccessState() = runTest {
         testDispatcher.scheduler.advanceUntilIdle()
 
-        assertEquals(3, viewModel.pins.size)
-        assertEquals("Alun Alun Malang", viewModel.pins[0].name)
-        assertNull(viewModel.snackbarMessage)
+        val state = viewModel.uiState
+        assertTrue(state is MapsUiState.Success)
+        assertEquals(3, state.pins.size)
+        assertEquals("Alun Alun Malang", state.pins[0].name)
     }
 
     @Test
-    fun loadPins_error_showsSnackbar() = runTest {
+    fun loadPins_error_updatesToErrorState() = runTest {
         mockRepository.throwException = true
         mockRepository.exceptionMessage = NETWORK_ERROR_MESSAGE
 
         val viewModelWithError = MapsViewModel(mockRepository)
         testDispatcher.scheduler.advanceUntilIdle()
 
-        assertEquals(0, viewModelWithError.pins.size)
-        assertEquals("Failed to load pins: $NETWORK_ERROR_MESSAGE", viewModelWithError.snackbarMessage)
+        val state = viewModelWithError.uiState
+        assertTrue(state is MapsUiState.Error)
+        assertEquals("Failed to load pins: $NETWORK_ERROR_MESSAGE", (state as MapsUiState.Error).message)
     }
 
     @Test
-    fun clearSnackbar_clearsMessage() = runTest {
-        mockRepository.throwException = true
-        mockRepository.exceptionMessage = NETWORK_ERROR_MESSAGE
-
-        val viewModelWithError = MapsViewModel(mockRepository)
+    fun updatePins_updatesToSuccessState() = runTest {
         testDispatcher.scheduler.advanceUntilIdle()
 
-        assertEquals("Failed to load pins: $NETWORK_ERROR_MESSAGE", viewModelWithError.snackbarMessage)
-
-        viewModelWithError.clearSnackbar()
-        assertNull(viewModelWithError.snackbarMessage)
-    }
-
-    @Test
-    fun updatePins_updatesPinsList() = runTest {
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        val newPins = viewModel.pins.take(1)
+        val newPins = (viewModel.uiState as MapsUiState.Success).pins.take(1)
         viewModel.updatePins(newPins)
 
-        assertEquals(1, viewModel.pins.size)
-        assertEquals("Alun Alun Malang", viewModel.pins[0].name)
+        val state = viewModel.uiState
+        assertTrue(state is MapsUiState.Success)
+        assertEquals(1, state.pins.size)
+        assertEquals("Alun Alun Malang", state.pins[0].name)
+    }
+
+    @Test
+    fun retryLoad_retriesLoading() = runTest {
+        mockRepository.throwException = true
+        mockRepository.exceptionMessage = NETWORK_ERROR_MESSAGE
+
+        val viewModelWithError = MapsViewModel(mockRepository)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertTrue(viewModelWithError.uiState is MapsUiState.Error)
+
+        // Reset exception and retry
+        mockRepository.throwException = false
+        viewModelWithError.retryLoad()
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertTrue(viewModelWithError.uiState is MapsUiState.Success)
     }
 }

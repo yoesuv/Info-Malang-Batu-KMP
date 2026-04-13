@@ -5,18 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.yoesuv.infomalangbatukmp.core.repository.ChangelogRepository
-import org.jetbrains.compose.resources.StringResource
-
-data class ChangeLogResource(
-    val versionRes: StringResource,
-    val descriptionRes: StringResource
-)
-
-sealed class ChangelogUiState {
-    object Loading : ChangelogUiState()
-    data class Success(val changelogs: List<ChangeLogResource>) : ChangelogUiState()
-    data class Error(val message: String) : ChangelogUiState()
-}
 
 class ChangelogViewModel(
     private val changelogRepository: ChangelogRepository
