@@ -12,10 +12,8 @@ import kotlinx.coroutines.launch
 class MapsViewModel(
     private val pinsRepository: PinsRepository
 ) : ViewModel() {
-    var pins by mutableStateOf<List<PinModel>>(emptyList())
-        private set
-    
-    var snackbarMessage by mutableStateOf<String?>(null)
+
+    var uiState: MapsUiState by mutableStateOf(MapsUiState.Loading)
         private set
 
     init {
@@ -23,27 +21,23 @@ class MapsViewModel(
     }
 
     fun updatePins(data: List<PinModel>) {
-        pins = data
-    }
-    
-    private fun showSnackbar(message: String) {
-        snackbarMessage = message
-    }
-    
-    fun clearSnackbar() {
-        snackbarMessage = null
+        uiState = MapsUiState.Success(data)
     }
 
     @Suppress("TooGenericExceptionCaught")
     fun loadPins() {
         viewModelScope.launch {
+            uiState = MapsUiState.Loading
             try {
                 val pinsData = pinsRepository.getPins()
-                updatePins(pinsData)
+                uiState = MapsUiState.Success(pinsData)
             } catch (e: Exception) {
-                showSnackbar("Failed to load pins: ${e.message ?: "Unknown error"}")
+                uiState = MapsUiState.Error("Failed to load pins: ${e.message ?: "Unknown error"}")
             }
         }
     }
 
+    fun retryLoad() {
+        loadPins()
+    }
 }
